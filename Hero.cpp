@@ -1,4 +1,5 @@
 #include "Hero.hpp"
+#include <iostream>
 
 namespace he
 {
@@ -14,7 +15,19 @@ namespace he
 		m_hero->setFillColor(sf::Color::Green);
 	}
 
+	bool Hero::Setup()
+	{
+		if (!m_texture.loadFromFile("Images\\Hero_texture.png"))
+		{
+			std::cout<<"Error with hero's texture!!!"<<std::endl;
+				return false;
+		}
+		m_hero = new sf::Sprite();
+		m_hero->setTexture(m_texture);
+		return true;
+	}
+
 	Hero::~Hero() { delete m_hero; }
 
-	sf::RectangleShape* Hero::GetH() { return m_hero; }
+	sf::Sprite* Hero::GetH() { return m_hero; }
 }

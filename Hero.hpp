@@ -7,14 +7,17 @@ namespace he
 	{
 		int m_x, m_y;
 		float m_r_x, m_r_y;
-		sf::RectangleShape* m_hero;
+		sf::Texture m_texture;
+		sf::Sprite* m_hero;
 
 	public:
 		Hero(int x, int y, float r_x, float r_y);
 
+		bool Setup();
+
 		~Hero();
 
-		sf::RectangleShape* GetH();
+		sf::Sprite* GetH();
 	};
 
 
