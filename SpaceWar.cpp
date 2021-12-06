@@ -18,6 +18,9 @@ int main()
     for (int i = 0; i <= width; i += width / N)
         enemies.push_back(new en::Enemies(i, 0, 20, rand() % 5 + 1));
 
+    std::vector<he::Hero*> heroes;
+    heroes.push_back(new he::Hero(320, 800, 20, 30));
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -44,9 +47,6 @@ int main()
             window.draw(*enemy->GetE());
 
         //Hero
-        std::vector<he::Hero*> heroes;
-        heroes.push_back(new he::Hero(500, 1000, 20, 30));
-
         for (const auto& hero : heroes)
             window.draw(*hero->GetH());
 
@@ -55,13 +55,13 @@ int main()
         std::this_thread::sleep_for(20ms);
     }
 
-    for (const auto& hero : heroes)
-        delete hero;
-    heroes.clear();
-
     for (const auto& enemy : enemies)
         delete enemy;
     enemies.clear();
+
+    for (const auto& hero : heroes)
+        delete hero;
+    heroes.clear();
 
     return 0;
 }
