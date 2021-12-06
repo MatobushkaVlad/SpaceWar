@@ -7,14 +7,17 @@ namespace en
 	{
 		int m_x, m_y;
 		float m_r, m_velocity;
-		sf::CircleShape* m_enemy;
+		sf::Texture m_texture;
+		sf::Sprite* m_enemy;
 
 	public:
 		Enemies(int x, int y, float r, float velocity);
 
+		 bool Setup();
+
 		~Enemies();
 
-		sf::CircleShape* GetE();
+		sf::Sprite* GetE();
 
 		//Установка значения скорости
 		void SetVelocity(int velocity);

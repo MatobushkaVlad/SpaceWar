@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Enemies.hpp"
 #include "Hero.hpp"
+#include <iostream>
 #include <thread>
 #include <chrono>
 
@@ -14,12 +15,24 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(width, height), "Space War");
 
+    sf::Texture texture;
+    if (!texture.loadFromFile("Textures/background.jpg"))
+    {
+        std::cout << "ERROR when loading back.jpg" << std::endl;
+        return false;
+    }
+    sf::Sprite back;
+    back.setTexture(texture);
+
+
     std::vector<en::Enemies*> enemies;
     for (int i = 0; i <= width; i += width / N)
         enemies.push_back(new en::Enemies(i, 0, 20, rand() % 5 + 1));
+    for (const auto& enemy : enemies)
+        if (!enemy->Setup())
+            return -1;
 
-    std::vector<he::Hero*> heroes;
-    heroes.push_back(new he::Hero(320, 800, 20, 30));
+    he::Hero* hero = nullptr;
 
     while (window.isOpen())
     {
@@ -41,15 +54,30 @@ int main()
             }
         }
 
+        hero = new he::Hero(320, 900, 30, 39);
+
+        if (!hero->Setup())
+        {
+            delete hero;
+            window.close();
+            return -1;
+        }
+
+        //Очищение окна
         window.clear();
 
+        //Отрисовка фона
+        window.draw(back);
+
+        //Отрисовка врагов
         for (const auto& enemy : enemies)
             window.draw(*enemy->GetE());
 
-        //Hero
-        for (const auto& hero : heroes)
+        //Отрисовка героя
+        if (hero != nullptr)
             window.draw(*hero->GetH());
 
+        //Оторбражение всего, что есть в буфере
         window.display();
 
         std::this_thread::sleep_for(20ms);
@@ -59,9 +87,8 @@ int main()
         delete enemy;
     enemies.clear();
 
-    for (const auto& hero : heroes)
+    if (hero != nullptr)
         delete hero;
-    heroes.clear();
 
     return 0;
 }

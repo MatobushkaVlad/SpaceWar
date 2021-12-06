@@ -1,4 +1,5 @@
 #include "Enemies.hpp"
+#include <iostream>
 
 namespace en
 {
@@ -8,16 +9,25 @@ namespace en
 		m_y = y;
 		m_r = r;
 		m_velocity = velocity;
-		m_enemy = new sf::CircleShape(m_r);
+	}
+
+	bool Enemies::Setup()
+	{
+		if (!m_texture.loadFromFile("Textures/Enemies_texture.png"))
+		{
+			std::cout << "Error with enemies's texture!!!" << std::endl;
+			return false;
+		}
+		m_enemy = new sf::Sprite();
+		m_enemy->setTexture(m_texture);
 		m_enemy->setOrigin(m_r, m_r);
 		m_enemy->setPosition((m_x - m_r), (m_y + m_r));
-		//Color
-		m_enemy->setFillColor(sf::Color::White);
+		return true;
 	}
 
 	Enemies::~Enemies() { delete m_enemy; }
 
-	sf::CircleShape* Enemies::GetE() { return m_enemy; }
+	sf::Sprite* Enemies::GetE() { return m_enemy; }
 
 	void Enemies::SetVelocity(int velocity)
 	{
