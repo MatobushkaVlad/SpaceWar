@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Enemies.hpp"
 #include "Hero.hpp"
+#include "Hero_Lazer.hpp"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -24,7 +25,6 @@ int main()
     sf::Sprite back;
     back.setTexture(texture);
 
-
     std::vector<en::Enemies*> enemies;
     for (int i = 0; i <= width; i += width / N)
         enemies.push_back(new en::Enemies(i, 0, 20, rand() % 5 + 1));
@@ -33,6 +33,9 @@ int main()
             return -1;
 
     he::Hero* hero = nullptr;
+    hero = new he::Hero(320, 900, 30, 39);
+    hl::Hero_Lazer* lazer = nullptr;
+    lazer = new hl::Hero_Lazer(320, 900, 10, 20, 20);
 
     while (window.isOpen())
     {
@@ -54,7 +57,19 @@ int main()
             }
         }
 
-        hero = new he::Hero(320, 900, 30, 39);
+        if (!lazer->Setup())
+        {
+            delete lazer;
+            window.close();
+            return -1;
+        }
+
+        if (lazer != nullptr)
+        {
+            lazer->Move();
+            if (lazer->GetY() < 0)
+                lazer->SetY(hero->GetY());
+        }
 
         if (!hero->Setup())
         {
@@ -77,6 +92,10 @@ int main()
         if (hero != nullptr)
             window.draw(*hero->GetH());
 
+        //Отрисовка лазера героя
+        if (lazer != nullptr)
+            window.draw(*lazer->GetHL());
+
         //Оторбражение всего, что есть в буфере
         window.display();
 
@@ -86,6 +105,9 @@ int main()
     for (const auto& enemy : enemies)
         delete enemy;
     enemies.clear();
+
+    if (lazer != nullptr)
+        delete lazer;
 
     if (hero != nullptr)
         delete hero;
