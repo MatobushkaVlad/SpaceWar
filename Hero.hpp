@@ -18,7 +18,8 @@ namespace he
 		~Hero();
 
 		sf::Sprite* GetH();
-	};
 
+		int GetY();
+	};
 
 }

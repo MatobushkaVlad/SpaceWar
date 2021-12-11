@@ -13,7 +13,7 @@ namespace en
 	public:
 		Enemies(int x, int y, float r, float velocity);
 
-		 bool Setup();
+		bool Setup();
 
 		~Enemies();
 

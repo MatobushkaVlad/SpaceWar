@@ -2,6 +2,7 @@
 #include "Enemies.hpp"
 #include "Hero.hpp"
 #include "Hero_Lazer.hpp"
+#include "Enemies_Lazer.hpp"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -26,10 +27,17 @@ int main()
     back.setTexture(texture);
 
     std::vector<en::Enemies*> enemies;
+    std::vector<el::Enemies_Lazer*> e_lazers;
     for (int i = 0; i <= width; i += width / N)
+    {
         enemies.push_back(new en::Enemies(i, 0, 20, rand() % 5 + 1));
+        e_lazers.push_back(new el::Enemies_Lazer(i, 0, 10, 20, 6));
+    }
     for (const auto& enemy : enemies)
         if (!enemy->Setup())
+            return -1;
+    for (const auto& e_lazer : e_lazers)
+        if (!e_lazer->Setup())
             return -1;
 
     he::Hero* hero = nullptr;
@@ -48,14 +56,21 @@ int main()
 
         //Enemies
         for (const auto& enemy : enemies)
-        {
-            enemy->Move();
-            if (enemy->GetY() > height)
+            for (const auto& e_lazer : e_lazers)
             {
-                enemy->SetVelocity(rand() % 5 + 1);
-                enemy->SetY(0);
+                e_lazer->Move();
+                enemy->Move();
+                if (e_lazer->GetY() > height)
+                {
+                    e_lazer->SetY(enemy->GetY());
+                }
+                if (enemy->GetY() > height)
+                {
+                    enemy->SetVelocity(rand() % 5 + 1);
+                    enemy->SetY(0);
+                }
+        
             }
-        }
 
         if (!lazer->Setup())
         {
@@ -84,6 +99,9 @@ int main()
         //Отрисовка фона
         window.draw(back);
 
+        for (const auto& e_lazer : e_lazers)
+            window.draw(*e_lazer->GetEL());
+
         //Отрисовка врагов
         for (const auto& enemy : enemies)
             window.draw(*enemy->GetE());
@@ -101,6 +119,10 @@ int main()
 
         std::this_thread::sleep_for(20ms);
     }
+
+    for (const auto& e_lazer : e_lazers)
+        delete e_lazer;
+    e_lazers.clear();
 
     for (const auto& enemy : enemies)
         delete enemy;

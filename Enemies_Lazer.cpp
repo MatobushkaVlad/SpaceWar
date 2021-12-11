@@ -1,9 +1,9 @@
-#include "Hero_Lazer.hpp"
+#include "Enemies_Lazer.hpp"
 #include <iostream>
 
-namespace hl
+namespace el
 {
-	Hero_Lazer::Hero_Lazer(int x, int y, float r_x, float r_y, float velocity)
+	Enemies_Lazer::Enemies_Lazer(int x, int y, float r_x, float r_y, float velocity)
 	{
 		m_x = x;
 		m_y = y;
@@ -12,9 +12,9 @@ namespace hl
 		m_velocity = velocity;
 	}
 
-	bool Hero_Lazer::Setup()
+	bool Enemies_Lazer::Setup()
 	{
-		if (!m_texture.loadFromFile("Textures/Hero_lazer.png"))
+		if (!m_texture.loadFromFile("Textures/Enemy_lazer.png"))
 		{
 			std::cout << "Error with hero_lazer's texture!!!" << std::endl;
 			return false;
@@ -25,26 +25,23 @@ namespace hl
 		m_lazer->setPosition(m_x, m_y);
 		return true;
 	}
-
-	void Hero_Lazer::Move()
+	
+	void Enemies_Lazer::Move()
 	{
-		m_y -= m_velocity;
+		m_y += m_velocity;
 		m_lazer->setPosition(m_x, m_y);
+
 	}
 
-	int Hero_Lazer::GetY() { return m_y; }
+	int Enemies_Lazer::GetY() { return m_y; }
 
-	void Hero_Lazer::SetY(int y)
+	void Enemies_Lazer::SetY(int y)
 	{
 		m_y = y;
 		m_lazer->setPosition(m_x, m_y);
 	}
 
-	sf::Sprite* Hero_Lazer::GetHL() { return m_lazer; }
+	sf::Sprite* Enemies_Lazer::GetEL() { return m_lazer; }
 
-	Hero_Lazer::~Hero_Lazer()
-	{
-		if (m_lazer != nullptr)
-			delete m_lazer;
-	}
+	Enemies_Lazer::~Enemies_Lazer() { delete m_lazer; }
 }

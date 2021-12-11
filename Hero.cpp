@@ -32,4 +32,6 @@ namespace he
 	}
 
 	sf::Sprite* Hero::GetH() { return m_hero; }
+
+	int Hero::GetY() { return m_y; }
 }

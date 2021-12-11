@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-namespace hl
+namespace el
 {
-	class Hero_Lazer
+	class Enemies_Lazer
 	{
 		int m_x, m_y;
 		float m_r_x, m_r_y, m_velocity;
@@ -11,7 +11,7 @@ namespace hl
 		sf::Sprite* m_lazer;
 
 	public:
-		Hero_Lazer(int x, int y, float r_x, float r_y, float velocity);
+		Enemies_Lazer(int x, int y, float r_x, float r_y, float velocity);
 
 		bool Setup();
 
@@ -21,8 +21,10 @@ namespace hl
 
 		void SetY(int y);
 
-		sf::Sprite* GetHL();
+		sf::Sprite* GetEL();
 
-		~Hero_Lazer();
+		~Enemies_Lazer();
+
+
 	};
 }
