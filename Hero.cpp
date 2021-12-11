@@ -37,6 +37,8 @@ namespace he
 
 	int Hero::GetX() { return m_x; }
 
+	float Hero::GetL() { return m_r_x; }
+
 	void Hero::SetX(int x)
 	{
 		m_x = x;

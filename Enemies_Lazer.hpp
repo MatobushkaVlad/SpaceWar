@@ -27,6 +27,8 @@ namespace el
 
 		int GetX();
 
+		float GetL();
+
 		void SetVelocity(int velocity);
 	};
 }

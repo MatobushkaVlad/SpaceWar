@@ -45,6 +45,8 @@ namespace hl
 
 	float Hero_Lazer::GetL() { return m_r_x; }
 
+	void Hero_Lazer::SetVelocity(int velocity) { m_velocity = velocity; }
+
 	sf::Sprite* Hero_Lazer::GetHL() { return m_lazer; }
 
 	Hero_Lazer::~Hero_Lazer()

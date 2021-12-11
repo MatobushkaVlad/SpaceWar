@@ -47,8 +47,7 @@ namespace el
 
 	int Enemies_Lazer::GetX() { return m_x; }
 
-	void Enemies_Lazer::SetVelocity(int velocity)
-	{
-		m_velocity = velocity;
-	}
+	float Enemies_Lazer::GetL() { return m_r_x; }
+
+	void Enemies_Lazer::SetVelocity(int velocity) { m_velocity = velocity; }
 }

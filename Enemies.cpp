@@ -29,10 +29,7 @@ namespace en
 
 	sf::Sprite* Enemies::GetE() { return m_enemy; }
 
-	void Enemies::SetVelocity(int velocity)
-	{
-		m_velocity = velocity;
-	}
+	void Enemies::SetVelocity(int velocity) { m_velocity = velocity; }
 
 	void Enemies::Move()
 	{

@@ -23,6 +23,8 @@ namespace he
 
 		int GetX();
 
+		float GetL();
+
 		void SetX(int x);
 
 		void SetY(int y);

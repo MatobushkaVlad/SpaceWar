@@ -25,6 +25,8 @@ namespace hl
 
 		float GetL();
 
+		void SetVelocity(int velocity);
+
 		sf::Sprite* GetHL();
 
 		~Hero_Lazer();
