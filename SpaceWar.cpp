@@ -6,6 +6,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <windows.h>
 
 using namespace std::chrono_literals;
 
@@ -18,11 +19,21 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(width, height), "Space War");
 
+    //Загрузка gameover
+    sf::Texture gameover;
+    if (!gameover.loadFromFile("Textures/game_over.png"))
+    {
+        std::cout << "ERROR when loading game_over.png" << std::endl;
+        return false;
+    }
+    sf::Sprite game_over;
+    game_over.setPosition(0 , 0);
+
     //Загрузка фона
     sf::Texture texture;
     if (!texture.loadFromFile("Textures/background2.jpg"))
     {
-        std::cout << "ERROR when loading back.jpg" << std::endl;
+        std::cout << "ERROR when loading background2.jpg" << std::endl;
         return false;
     }
     sf::Sprite back;
@@ -115,10 +126,11 @@ int main()
                     for (const auto& enemy : enemies) { enemy->SetVelocity(0); }
                     for (const auto& e_lazer : e_lazers) { e_lazer->SetVelocity(0); }
                     lazer->SetVelocity(0);
-                }
+
+                } 
             }
         }
-        
+
         if (!lazer->Setup())
         {
             delete lazer;
