@@ -13,7 +13,7 @@ int main()
 {
     const int width = 640;
     const int height = 1080;
-    const int N = 20;
+    const int N = 10;
 
     sf::RenderWindow window(sf::VideoMode(width, height), "Space War");
 
@@ -28,10 +28,10 @@ int main()
 
     std::vector<en::Enemies*> enemies;
     std::vector<el::Enemies_Lazer*> e_lazers;
-    for (int i = 0; i <= width; i += width / N)
+    for (int i = 20; i <= width; i += width / N)
     {
-        enemies.push_back(new en::Enemies(i, 0, 20, rand() % 5 + 1));
-        e_lazers.push_back(new el::Enemies_Lazer(i, 0, 10, 20, 6));
+        enemies.push_back(new en::Enemies(i, 0, 20, rand() % 5 + 4));
+        e_lazers.push_back(new el::Enemies_Lazer(i, 0, 10, 20, rand() % 5 + 8));
     }
     for (const auto& enemy : enemies)
         if (!enemy->Setup())
@@ -56,22 +56,44 @@ int main()
 
         //Enemies
         for (const auto& enemy : enemies)
+        {
+            enemy->Move();
+            if (enemy->GetY() > height)
+            {
+                enemy->SetVelocity(rand() % 5 + 1);
+                enemy->SetY(0);
+            }
             for (const auto& e_lazer : e_lazers)
             {
-                e_lazer->Move();
-                enemy->Move();
-                if (e_lazer->GetY() > height)
+                if (e_lazer->GetX() == enemy->GetX())
                 {
-                    e_lazer->SetY(enemy->GetY());
+                    e_lazer->Move();
+                    if ((e_lazer->GetY() > height))
+                    {
+                        e_lazer->SetY(enemy->GetY());
+                    }
                 }
-                if (enemy->GetY() > height)
-                {
-                    enemy->SetVelocity(rand() % 5 + 1);
-                    enemy->SetY(0);
-                }
-        
             }
+        }
+        /*for (const auto& enemy : enemies)
+        {
+            enemy->Move();
+            if (enemy->GetY() > height)
+            {
+                enemy->SetVelocity(rand() % 5 + 1);
+                enemy->SetY(0);
+            }
+        }
 
+        for (const auto& e_lazer : e_lazers)
+        {
+            e_lazer->Move();
+            if (e_lazer->GetY() > height)
+            {
+                e_lazer->SetY(0);
+            }
+        }
+        */
         if (!lazer->Setup())
         {
             delete lazer;
@@ -117,7 +139,7 @@ int main()
         //Оторбражение всего, что есть в буфере
         window.display();
 
-        std::this_thread::sleep_for(20ms);
+        std::this_thread::sleep_for(30ms);
     }
 
     for (const auto& e_lazer : e_lazers)

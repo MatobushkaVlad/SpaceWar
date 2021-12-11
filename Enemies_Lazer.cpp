@@ -44,4 +44,6 @@ namespace el
 	sf::Sprite* Enemies_Lazer::GetEL() { return m_lazer; }
 
 	Enemies_Lazer::~Enemies_Lazer() { delete m_lazer; }
+
+	int Enemies_Lazer::GetX() { return m_x; }
 }

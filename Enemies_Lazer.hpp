@@ -25,6 +25,6 @@ namespace el
 
 		~Enemies_Lazer();
 
-
+		int GetX();
 	};
 }

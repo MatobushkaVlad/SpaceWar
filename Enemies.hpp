@@ -28,6 +28,8 @@ namespace en
 		void SetY(int y);
 
 		int GetY();
+
+		int GetX();
 		
 	};
 
