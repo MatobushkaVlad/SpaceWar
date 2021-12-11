@@ -19,7 +19,7 @@ namespace hl
 
 		int GetY();
 
-		void SetY(int y);
+		void Set(int x, int y);
 
 		sf::Sprite* GetHL();
 

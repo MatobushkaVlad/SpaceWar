@@ -20,6 +20,10 @@ namespace he
 		sf::Sprite* GetH();
 
 		int GetY();
+
+		int GetX();
+
+		void Move(float x, float y);
 	};
 
 }

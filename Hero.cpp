@@ -34,4 +34,30 @@ namespace he
 	sf::Sprite* Hero::GetH() { return m_hero; }
 
 	int Hero::GetY() { return m_y; }
+
+	int Hero::GetX() { return m_x; }
+
+	void Hero::Move(float x, float y)
+	{
+		if (y == -8)
+		{
+			m_y -= 8;
+			m_hero->setPosition(m_x, m_y);
+		}
+		else if (y == 8)
+		{
+			m_y += 8;
+			m_hero->setPosition(m_x, m_y);
+		}
+		else if (x == 8)
+		{
+			m_x += 8;
+			m_hero->setPosition(m_x, m_y);
+		}
+		else if (x == -8)
+		{
+			m_x -= 8;
+			m_hero->setPosition(m_x, m_y);
+		}
+	}
 }

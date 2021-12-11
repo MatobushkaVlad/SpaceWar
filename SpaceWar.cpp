@@ -30,7 +30,7 @@ int main()
     std::vector<el::Enemies_Lazer*> e_lazers;
     for (int i = 20; i <= width; i += width / N)
     {
-        enemies.push_back(new en::Enemies(i, 0, 20, rand() % 5 + 4));
+        enemies.push_back(new en::Enemies(i, 0, 20, rand() % 5 + 5));
         e_lazers.push_back(new el::Enemies_Lazer(i, 0, 10, 20, rand() % 5 + 8));
     }
     for (const auto& enemy : enemies)
@@ -43,7 +43,7 @@ int main()
     he::Hero* hero = nullptr;
     hero = new he::Hero(320, 900, 30, 39);
     hl::Hero_Lazer* lazer = nullptr;
-    lazer = new hl::Hero_Lazer(320, 900, 10, 20, 20);
+    lazer = new hl::Hero_Lazer(320, 900, 10, 20, 25);
 
     while (window.isOpen())
     {
@@ -75,25 +75,7 @@ int main()
                 }
             }
         }
-        /*for (const auto& enemy : enemies)
-        {
-            enemy->Move();
-            if (enemy->GetY() > height)
-            {
-                enemy->SetVelocity(rand() % 5 + 1);
-                enemy->SetY(0);
-            }
-        }
-
-        for (const auto& e_lazer : e_lazers)
-        {
-            e_lazer->Move();
-            if (e_lazer->GetY() > height)
-            {
-                e_lazer->SetY(0);
-            }
-        }
-        */
+        
         if (!lazer->Setup())
         {
             delete lazer;
@@ -105,7 +87,7 @@ int main()
         {
             lazer->Move();
             if (lazer->GetY() < 0)
-                lazer->SetY(hero->GetY());
+                lazer->Set(hero->GetX() , hero->GetY());
         }
 
         if (!hero->Setup())
@@ -135,6 +117,12 @@ int main()
         //Отрисовка лазера героя
         if (lazer != nullptr)
             window.draw(*lazer->GetHL());
+
+        //Движение героя
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::W))) { hero->Move(0, -8); }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::S))) { hero->Move(0, 8); }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::A))) { hero->Move(-8, 0); }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::D))) { hero->Move(8, 0); }
 
         //Оторбражение всего, что есть в буфере
         window.display();

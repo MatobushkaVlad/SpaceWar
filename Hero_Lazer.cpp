@@ -34,8 +34,9 @@ namespace hl
 
 	int Hero_Lazer::GetY() { return m_y; }
 
-	void Hero_Lazer::SetY(int y)
+	void Hero_Lazer::Set(int x, int y)
 	{
+		m_x = x;
 		m_y = y;
 		m_lazer->setPosition(m_x, m_y);
 	}
