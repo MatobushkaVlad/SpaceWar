@@ -23,6 +23,10 @@ namespace he
 
 		int GetX();
 
+		void SetX(int x);
+
+		void SetY(int y);
+
 		void Move(float x, float y);
 	};
 

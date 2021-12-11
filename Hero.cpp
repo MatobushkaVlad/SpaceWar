@@ -37,6 +37,16 @@ namespace he
 
 	int Hero::GetX() { return m_x; }
 
+	void Hero::SetX(int x)
+	{
+		m_x = x;
+	}
+
+	void Hero::SetY(int y)
+	{
+		m_y = y;
+	}
+
 	void Hero::Move(float x, float y)
 	{
 		if (y == -8)

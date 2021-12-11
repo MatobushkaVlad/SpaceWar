@@ -44,8 +44,9 @@ int main()
     std::vector<el::Enemies_Lazer*> e_lazers;
     for (int i = 20; i <= width; i += width / N)
     {
-        enemies.push_back(new en::Enemies(i, 0, 20, rand() % 5 + 5));
-        e_lazers.push_back(new el::Enemies_Lazer(i, 0, 10, 20, rand() % 5 + 8));
+        int L = rand() % 5 + 5;
+        enemies.push_back(new en::Enemies(i, 0, 20, L));//rand() % 5 + 6));
+        e_lazers.push_back(new el::Enemies_Lazer(i, 0, 10, 20, L + 3));//rand() % 5 + 9));
     }
     for (const auto& enemy : enemies)
         if (!enemy->Setup())
@@ -57,7 +58,7 @@ int main()
     he::Hero* hero = nullptr;
     hero = new he::Hero(320, 900, 30, 39);
     hl::Hero_Lazer* lazer = nullptr;
-    lazer = new hl::Hero_Lazer(320, 900, 10, 20, 30);
+    lazer = new hl::Hero_Lazer(320, 900, 10, 20, 25);
 
     while (window.isOpen())
     {
@@ -72,9 +73,10 @@ int main()
         for (const auto& enemy : enemies)
         {
             enemy->Move();
+            int L = rand() % 5 + 5;
             if (enemy->GetY() > height)
             {
-                enemy->SetVelocity(rand() % 5 + 1);
+                enemy->SetVelocity(L);//rand() % 5 + 6);
                 enemy->SetY(0);
             }
             for (const auto& e_lazer : e_lazers)
@@ -84,6 +86,7 @@ int main()
                     e_lazer->Move();
                     if ((e_lazer->GetY() > height))
                     {
+                        e_lazer->SetVelocity(L + 3);
                         e_lazer->SetY(enemy->GetY());
                     }
                 }
@@ -121,6 +124,15 @@ int main()
                 }
             }
         }
+
+        //Ограничения области игры
+        if ((hero->GetX() <= 15)) { hero->SetX(16); }
+
+        if (hero->GetX() >= 615) { hero->SetX(614); }
+
+        if (hero->GetY() <= 200) { hero->SetY(201); }
+
+        if (hero->GetY() >= 1060) { hero->SetY(1059); }
 
         if (!hero->Setup())
         {

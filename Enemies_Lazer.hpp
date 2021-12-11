@@ -26,5 +26,7 @@ namespace el
 		~Enemies_Lazer();
 
 		int GetX();
+
+		void SetVelocity(int velocity);
 	};
 }
