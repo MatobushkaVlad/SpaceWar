@@ -41,6 +41,10 @@ namespace hl
 		m_lazer->setPosition(m_x, m_y);
 	}
 
+	int Hero_Lazer::GetX() { return m_x; }
+
+	float Hero_Lazer::GetL() { return m_r_x; }
+
 	sf::Sprite* Hero_Lazer::GetHL() { return m_lazer; }
 
 	Hero_Lazer::~Hero_Lazer()

@@ -49,4 +49,6 @@ namespace en
 	int Enemies::GetY() { return m_y; }
 
 	int Enemies::GetX() { return m_x; }
+
+	float Enemies::GetR() { return m_r; }
 }

@@ -30,6 +30,8 @@ namespace en
 		int GetY();
 
 		int GetX();
+
+		float GetR();
 		
 	};
 

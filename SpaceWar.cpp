@@ -14,17 +14,31 @@ int main()
     const int width = 640;
     const int height = 1080;
     const int N = 10;
+    int score = 0;
 
     sf::RenderWindow window(sf::VideoMode(width, height), "Space War");
 
     sf::Texture texture;
-    if (!texture.loadFromFile("Textures/background.jpg"))
+    if (!texture.loadFromFile("Textures/background2.jpg"))
     {
         std::cout << "ERROR when loading back.jpg" << std::endl;
         return false;
     }
     sf::Sprite back;
     back.setTexture(texture);
+
+    sf::Font font;
+    if (!font.loadFromFile("Fonts/STENCIL.ttf"))
+    {
+        std::cout << "ERROR: font was not loaded." << std::endl;
+        return -1;
+    }
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(30);
+    text.setFillColor(sf::Color(235, 1, 101));
+    text.setStyle(sf::Text::Bold);
 
     std::vector<en::Enemies*> enemies;
     std::vector<el::Enemies_Lazer*> e_lazers;
@@ -43,7 +57,7 @@ int main()
     he::Hero* hero = nullptr;
     hero = new he::Hero(320, 900, 30, 39);
     hl::Hero_Lazer* lazer = nullptr;
-    lazer = new hl::Hero_Lazer(320, 900, 10, 20, 25);
+    lazer = new hl::Hero_Lazer(320, 900, 10, 20, 30);
 
     while (window.isOpen())
     {
@@ -88,6 +102,24 @@ int main()
             lazer->Move();
             if (lazer->GetY() < 0)
                 lazer->Set(hero->GetX() , hero->GetY());
+            for (const auto& enemy : enemies)
+            {
+                int X = lazer->GetX();
+                int Y = lazer->GetY();
+                float L = lazer->GetL();
+
+                int x = enemy->GetX();
+                int y = enemy->GetY();
+                float R = enemy->GetR();
+
+                float d = sqrt((X - x) * (X - x) + (Y - y) * (Y - y));
+                if (L + R >= d)
+                {
+                    enemy->SetY(0);
+                    lazer->Set(hero->GetX(), hero->GetY());
+                    score++;
+                }
+            }
         }
 
         if (!hero->Setup())
@@ -102,6 +134,9 @@ int main()
 
         //Отрисовка фона
         window.draw(back);
+
+        text.setString(std::string("Score: ") + std::to_string(score));
+        window.draw(text);
 
         for (const auto& e_lazer : e_lazers)
             window.draw(*e_lazer->GetEL());

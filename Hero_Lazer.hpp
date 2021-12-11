@@ -21,6 +21,10 @@ namespace hl
 
 		void Set(int x, int y);
 
+		int GetX();
+
+		float GetL();
+
 		sf::Sprite* GetHL();
 
 		~Hero_Lazer();
