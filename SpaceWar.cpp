@@ -118,6 +118,7 @@ int main()
                 int y_h = hero->GetY();
                 float l_h = hero->GetL();
 
+                //Расстояние от врагов и их лазеров до героя
                 float d_1 = sqrt((x_h - x_el) * (x_h - x_el) + (y_h - y_el) * (y_h - y_el));
                 float d_2 = sqrt((x_h - x_e) * (x_h - x_e) + (y_h - y_e) * (y_h - y_e));
 
@@ -126,7 +127,6 @@ int main()
                     for (const auto& enemy : enemies) { enemy->SetVelocity(0); }
                     for (const auto& e_lazer : e_lazers) { e_lazer->SetVelocity(0); }
                     lazer->SetVelocity(0);
-
                 } 
             }
         }
@@ -164,21 +164,30 @@ int main()
             }
         }
 
-        //Ограничения области игры
-        if ((hero->GetX() <= 15)) { hero->SetX(16); }
-
-        if (hero->GetX() >= 615) { hero->SetX(614); }
-
-        if (hero->GetY() <= 200) { hero->SetY(201); }
-
-        if (hero->GetY() >= 1060) { hero->SetY(1059); }
-
         if (!hero->Setup())
         {
             delete hero;
             window.close();
             return -1;
         }
+
+        //Движение героя
+        if (hero != nullptr)
+        {
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::W))) { hero->Move(0, -8); }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::S))) { hero->Move(0, 8); }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::A))) { hero->Move(-8, 0); }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::D))) { hero->Move(8, 0); }
+        }
+
+        //Ограничения области игры
+        if (((hero->GetX() - 8) <= 22)) { hero->SetX(23); }
+
+        if ((hero->GetX() + 8) >= 615) { hero->SetX(614); }
+
+        if ((hero->GetY() - 8) <= 200) { hero->SetY(201); }
+
+        if ((hero->GetY() + 8) >= 1030) { hero->SetY(1020); }
 
         //Очищение окна
         window.clear();
@@ -203,12 +212,6 @@ int main()
         //Отрисовка лазера героя
         if (lazer != nullptr)
             window.draw(*lazer->GetHL());
-
-        //Движение героя
-        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::W))) { hero->Move(0, -8); }
-        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::S))) { hero->Move(0, 8); }
-        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::A))) { hero->Move(-8, 0); }
-        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::D))) { hero->Move(8, 0); }
         
         //Оторбражение всего, что есть в буфере
         window.display();
