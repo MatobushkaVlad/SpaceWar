@@ -24,7 +24,9 @@ add_executable("${PROJECT_NAME}" SpaceWar.cpp
 						Enemies.cpp
 						Enemies_Lazer.cpp
 						Hero.cpp
-						Hero_Lazer.cpp)
+						Hero_Lazer.cpp
+						Game.hpp
+						Menu.hpp)
 											
 target_link_libraries("${PROJECT_NAME}" 
 					    debug sfml-graphics-s-d 

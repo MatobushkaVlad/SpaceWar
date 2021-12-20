@@ -71,6 +71,8 @@ namespace ga
         hl::Hero_Lazer* lazer = nullptr;
         lazer = new hl::Hero_Lazer(320, 900, 10, 20, 25);
 
+        int M = 0;
+
         while (window.isOpen())
         {
             sf::Event event;
@@ -122,6 +124,7 @@ namespace ga
                         for (const auto& enemy : enemies) { enemy->SetVelocity(0); }
                         for (const auto& e_lazer : e_lazers) { e_lazer->SetVelocity(0); }
                         lazer->SetVelocity(0);
+                        M = 1;
                     }
                 }
             }
@@ -213,8 +216,21 @@ namespace ga
 
             std::this_thread::sleep_for(30ms);
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) { return true; }//если R, то выходим в меню
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { return false; }//если эскейп, то выходим из игры
+            //если R, то выходим в меню (рестарт)
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) { return true; }
+            //если эскейп, то выходим из игры
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { return false; }
+
+            if (M == 1)
+            {
+                me::RestartMenu(window);
+                if (me::RestartMenu(window) == true)
+                {
+                    M = 0;
+                    return true;
+                }
+                else { return false; }
+            }
         }
 
         for (const auto& e_lazer : e_lazers)
@@ -230,10 +246,12 @@ namespace ga
 
         if (hero != nullptr)
             delete hero;
+
 	}
 
     void RestartGame()
     {
         if (Game()) { RestartGame(); }
     }
+
 }
