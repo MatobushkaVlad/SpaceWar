@@ -1,34 +1,30 @@
-#include <SFML/Graphics.hpp>
+/*#include <SFML/Graphics.hpp>
 #include "Enemies.hpp"
 #include "Hero.hpp"
 #include "Hero_Lazer.hpp"
-#include "Enemies_Lazer.hpp"
-#include <iostream>
+#include "Enemies_Lazer.hpp" 
+#include "Menu.hpp" */
+#include "Game.hpp"
+/*#include <iostream>
 #include <thread>
 #include <chrono>
 #include <windows.h>
 
-using namespace std::chrono_literals;
+using namespace std::chrono_literals; */
 
 int main()
 {
-    const int width = 640;
+    ga::RestartGame();
+    /*const int width = 640;
     const int height = 1080;
-    const int N = 10;
-    int score = 0;
+    /*const int N = 10;
+    int score = 0; 
 
     sf::RenderWindow window(sf::VideoMode(width, height), "Space War");
 
-    //Загрузка gameover
-    sf::Texture gameover;
-    if (!gameover.loadFromFile("Textures/game_over.png"))
-    {
-        std::cout << "ERROR when loading game_over.png" << std::endl;
-        return false;
-    }
-    sf::Sprite game_over;
-    game_over.setPosition(0 , 0);
-
+    me::Menu(window); */
+    
+    /*
     //Загрузка фона
     sf::Texture texture;
     if (!texture.loadFromFile("Textures/background2.jpg"))
@@ -232,6 +228,6 @@ int main()
 
     if (hero != nullptr)
         delete hero;
-
+        */
     return 0;
 }
