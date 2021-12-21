@@ -22,6 +22,14 @@ namespace ga
 		int score = 0;
 
         sf::RenderWindow window(sf::VideoMode(width, height), "Space War");
+
+        sf::Image icon;
+        if (!icon.loadFromFile("Textures/SpaceWar.png"))
+        {
+            return false;
+        }
+        window.setIcon(32, 32, icon.getPixelsPtr());
+
         me::Menu(window);
 
         //Загрузка фона
