@@ -45,7 +45,7 @@ namespace me
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                if (nombermenu == 1) { return true; menu = false; }
+                if (nombermenu == 1) { menu = false; }
                 if (nombermenu == 2) { return false; window.close(); menu = false; }
             }
 

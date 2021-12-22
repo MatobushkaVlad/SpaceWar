@@ -33,11 +33,10 @@ namespace ga
 
         me::Menu(window);
 
-        if (me::Menu(window) == true)
+        if (me::Menu(window) == false)
         {
-            return true;
+            return false;
         }
-        else { return false; }
 
         //Загрузка фона
         sf::Texture texture;
@@ -261,7 +260,6 @@ namespace ga
 
         if (hero != nullptr)
             delete hero;
-
 	}
 
     void RestartGame()
