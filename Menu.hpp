@@ -3,7 +3,7 @@
 
 namespace me
 {
-    void Menu(sf::RenderWindow& window)
+    bool Menu(sf::RenderWindow& window)
     {
         sf::Texture Start;
         sf::Texture Exit;
@@ -45,8 +45,8 @@ namespace me
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                if (nombermenu == 1) { menu = false; }
-                if (nombermenu == 2) { window.close(); menu = false; }
+                if (nombermenu == 1) { return true; menu = false; }
+                if (nombermenu == 2) { return false; window.close(); menu = false; }
             }
 
             window.draw(menu_texture);
@@ -102,7 +102,7 @@ namespace me
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
                 if (nombermenu == 1) { menu = false; return true; }
-                if (nombermenu == 2) { window.close(); menu = false; return false; }
+                if (nombermenu == 2) { return false; window.close(); menu = false; }
             }
 
             window.draw(menu_texture);

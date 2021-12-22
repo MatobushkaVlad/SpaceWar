@@ -23,6 +23,7 @@ namespace ga
 
         sf::RenderWindow window(sf::VideoMode(width, height), "Space War");
 
+        //Иконка окна
         sf::Image icon;
         if (!icon.loadFromFile("Textures/SpaceWar.png"))
         {
@@ -31,6 +32,12 @@ namespace ga
         window.setIcon(32, 32, icon.getPixelsPtr());
 
         me::Menu(window);
+
+        if (me::Menu(window) == true)
+        {
+            return true;
+        }
+        else { return false; }
 
         //Загрузка фона
         sf::Texture texture;
@@ -223,7 +230,7 @@ namespace ga
             window.display();
 
             std::this_thread::sleep_for(30ms);
-
+            
             //если R, то выходим в меню (рестарт)
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) { return true; }
             //если эскейп, то выходим из игры
@@ -238,9 +245,9 @@ namespace ga
                     return true;
                 }
                 else { return false; }
-            }
+            } 
         }
-
+        
         for (const auto& e_lazer : e_lazers)
             delete e_lazer;
         e_lazers.clear();
