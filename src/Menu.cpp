@@ -1,5 +1,5 @@
-#pragma once
-#include "Game.hpp"
+#include <Menu.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace me
 {

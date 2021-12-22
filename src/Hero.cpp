@@ -1,4 +1,4 @@
-#include "Hero.hpp"
+#include <Hero.hpp>
 #include <iostream>
 
 namespace he

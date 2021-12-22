@@ -1,10 +1,10 @@
-#pragma once
 #include <SFML/Graphics.hpp>
-#include "Enemies.hpp"
-#include "Hero.hpp"
-#include "Hero_Lazer.hpp"
-#include "Enemies_Lazer.hpp"
-#include "Menu.hpp"
+#include <Enemies.hpp>
+#include <Hero.hpp>
+#include <Hero_Lazer.hpp>
+#include <Enemies_Lazer.hpp>
+#include <Menu.hpp>
+#include <Game.hpp>
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -14,12 +14,12 @@ using namespace std::chrono_literals;
 
 namespace ga
 {
-	bool Game()
-	{
-		const int width = 640;
-		const int height = 1080;
-		const int N = 10;
-		int score = 0;
+    bool Game()
+    {
+        const int width = 640;
+        const int height = 1080;
+        const int N = 10;
+        int score = 0;
 
         sf::RenderWindow window(sf::VideoMode(width, height), "Space War");
 
@@ -72,12 +72,12 @@ namespace ga
             enemies.push_back(new en::Enemies(i, 0, 20, L));
             e_lazers.push_back(new el::Enemies_Lazer(i, 0, 10, 20, L + 3));
         }
-       for (const auto & enemy : enemies)
+        for (const auto& enemy : enemies)
             if (!enemy->Setup())
                 return false;
-        for (const auto & e_lazer : e_lazers)
+        for (const auto& e_lazer : e_lazers)
             if (!e_lazer->Setup())
-                return false; 
+                return false;
 
         //Создание героя и его лазера
         he::Hero* hero = nullptr;
@@ -148,7 +148,7 @@ namespace ga
                 delete lazer;
                 window.close();
                 return false;
-            } 
+            }
 
             //Лазер героя
             if (lazer != nullptr)
@@ -181,7 +181,7 @@ namespace ga
                 delete hero;
                 window.close();
                 return false;
-            } 
+            }
 
             //Движение героя
             if (hero != nullptr)
@@ -229,7 +229,7 @@ namespace ga
             window.display();
 
             std::this_thread::sleep_for(30ms);
-            
+
             //если R, то выходим в меню (рестарт)
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) { return true; }
             //если эскейп, то выходим из игры
@@ -244,9 +244,9 @@ namespace ga
                     return true;
                 }
                 else { return false; }
-            } 
+            }
         }
-        
+
         for (const auto& e_lazer : e_lazers)
             delete e_lazer;
         e_lazers.clear();
@@ -260,7 +260,7 @@ namespace ga
 
         if (hero != nullptr)
             delete hero;
-	}
+    }
 
     void RestartGame()
     {

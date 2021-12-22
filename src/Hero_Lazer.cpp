@@ -1,4 +1,4 @@
-#include "Hero_Lazer.hpp"
+#include <Hero_Lazer.hpp>
 #include <iostream>
 
 namespace hl

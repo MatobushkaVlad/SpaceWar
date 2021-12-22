@@ -13,20 +13,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 add_definitions(-DSFML_STATIC)		 # дефайны
 
+include_directories("inc/")
 include_directories("ext/SFML/include/")	# добавляем директории
 link_directories("ext/SFML/lib/")	
 
 add_executable("${PROJECT_NAME}" SpaceWar.cpp 
-						Enemies.hpp
-						Enemies_Lazer.hpp
-						Hero.hpp
-						Hero_Lazer.hpp
-						Enemies.cpp
-						Enemies_Lazer.cpp
-						Hero.cpp
-						Hero_Lazer.cpp
-						Game.hpp
-						Menu.hpp)
+						inc/Enemies.hpp
+						inc/Enemies_Lazer.hpp
+						inc/Hero.hpp
+						inc/Hero_Lazer.hpp
+						inc/Game.hpp
+						inc/Menu.hpp
+						src/Enemies.cpp
+						src/Enemies_Lazer.cpp
+						src/Hero.cpp
+						src/Hero_Lazer.cpp
+						src/Game.cpp
+						src/Menu.cpp
+						)
 											
 target_link_libraries("${PROJECT_NAME}" 
 					    debug sfml-graphics-s-d 
